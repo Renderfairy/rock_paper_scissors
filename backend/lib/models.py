@@ -16,13 +16,3 @@ class User(db.Model):
         super().__init__()
         self.username = username
         self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-
-
-class Article(db.Model):
-    __tablename__ = "articles"
-
-    article_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    author_user_id = db.Column(db.Integer, db.ForeignKey(User.user_id), nullable=False)
-    title = db.Column(db.String, nullable=False)
-    content = db.Column(db.String, nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)

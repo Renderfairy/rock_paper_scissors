@@ -1,0 +1,7 @@
+.idea
+.DS_store
+.vscode
+
+**/*.pyc
+
+local_dbs/*.db
