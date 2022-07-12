@@ -1,0 +1,129 @@
+openapi: "3.0.0"
+
+info:
+  title: Connexion OpenAPI example
+  version: "1.0"
+servers:
+  - url: /
+
+paths:
+  /login:
+    post:
+      summary: Check auth and backend server status
+      operationId: lib.views.view_login.post
+      requestBody:
+        description: Username and password
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                username:
+                  type: string
+      responses:
+        '200':
+          description: Authorization ok, returning new token for user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                  is_admin:
+                    type: boolean
+        403:
+          description: Unauthorized
+
+  /articles:
+    get:
+      summary: Get all user articles
+      operationId: lib.views.view_articles.get
+      security:
+        - jwt: [ ]
+      responses:
+        '200':
+          description: User articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Article'
+    post:
+      summary: Add new post
+      operationId: lib.views.view_articles.post
+      security:
+        - jwt: [ ]
+      requestBody:
+        description: New article
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        '200':
+          description: Article created
+  /articles/{article_id}:
+    put:
+      summary: Update article
+      operationId: lib.views.view_articles.put
+      security:
+        - jwt: [ ]
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Updated article
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Article'
+      responses:
+        '200':
+          description: Article update
+    delete:
+      summary: Delete article
+      operationId: lib.views.view_articles.delete
+      security:
+        - jwt: [ ]
+      parameters:
+        - name: article_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Article deleted
+
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: lib.auth.decode_token
+
+  schemas:
+    Article:
+      properties:
+        article_id:
+          type: integer
+          readOnly: true
+        title:
+          type: string
+        content:
+          type: string
+      required:
+        - article_id
+        - title
+        - content
