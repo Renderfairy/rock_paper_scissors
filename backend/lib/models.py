@@ -27,4 +27,17 @@ class Credit(db.Model):
     credit_value = db.Column(db.SmallInteger, nullable=False, default=10)
 
 
+class Win(db.Model):
+    __tablename__ = "wins"
 
+    win_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    winner_id = db.Column(db.Integer, db.ForeignKey(User.user_id), nullable=False)
+    won_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+
+
+class Loss(db.Model):
+    __tablename__ = "losses"
+
+    loss_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    loser_id = db.Column(db.Integer, db.ForeignKey(User.user_id), nullable=False)
+    lost_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)

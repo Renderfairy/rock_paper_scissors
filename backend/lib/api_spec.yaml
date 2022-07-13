@@ -38,21 +38,23 @@ paths:
         403:
           description: Unauthorized
 
-#  /articles:
-#    get:
-#      summary: Get all user articles
-#      operationId: lib.views.view_articles.get
-#      security:
-#        - jwt: [ ]
-#      responses:
-#        '200':
-#          description: User articles
-#          content:
-#            application/json:
-#              schema:
-#                type: array
-#                items:
-#                  $ref: '#/components/schemas/Article'
+  /stats:
+    get:
+      summary: Get users statistics
+      operationId: lib.views.game.get_statistics
+      security:
+        - jwt: [ ]
+      responses:
+        '200':
+          description: User statistic
+          content:
+            application/json:
+              schema:
+                type: array
+                allOf:
+                  - $ref: '#/components/schemas/Credit'
+                  - $ref: '#/components/schemas/Win'
+                  - $ref: '#/components/schemas/Loss'
 #    post:
 #      summary: Add new post
 #      operationId: lib.views.view_articles.post
@@ -113,17 +115,21 @@ components:
       bearerFormat: JWT
       x-bearerInfoFunc: lib.auth.decode_token
 
-#  schemas:
-#    Article:
-#      properties:
-#        article_id:
-#          type: integer
-#          readOnly: true
-#        title:
-#          type: string
-#        content:
-#          type: string
-#      required:
-#        - article_id
-#        - title
-#        - content
+  schemas:
+    Credit:
+      properties:
+        credit_id:
+          type: integer
+          readOnly: true
+        credit_value:
+          type: integer
+    Win:
+      properties:
+        win_id:
+          type: integer
+          readOnly: true
+    Loss:
+      properties:
+        loss_id:
+          type: integer
+          readOnly: true

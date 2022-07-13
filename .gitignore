@@ -4,4 +4,4 @@
 
 **/*.pyc
 
-local_dbs/*.db
+backend/local_dbs/*.db
