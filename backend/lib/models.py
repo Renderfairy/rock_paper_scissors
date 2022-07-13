@@ -5,6 +5,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -16,3 +17,14 @@ class User(db.Model):
         super().__init__()
         self.username = username
         self.password_hash = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+
+class Credit(db.Model):
+    __tablename__ = "credits"
+
+    credit_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    credit_owner_id = db.Column(db.Integer, db.ForeignKey(User.user_id), nullable=False)
+    credit_value = db.Column(db.SmallInteger, nullable=False, default=10)
+
+
+

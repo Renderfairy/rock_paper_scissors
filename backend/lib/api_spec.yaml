@@ -1,7 +1,7 @@
 openapi: "3.0.0"
 
 info:
-  title: Connexion OpenAPI example
+  title: Rock Paper Scissors Game
   version: "1.0"
 servers:
   - url: /
@@ -38,73 +38,73 @@ paths:
         403:
           description: Unauthorized
 
-  /articles:
-    get:
-      summary: Get all user articles
-      operationId: lib.views.view_articles.get
-      security:
-        - jwt: [ ]
-      responses:
-        '200':
-          description: User articles
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Article'
-    post:
-      summary: Add new post
-      operationId: lib.views.view_articles.post
-      security:
-        - jwt: [ ]
-      requestBody:
-        description: New article
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Article'
-      responses:
-        '200':
-          description: Article created
-  /articles/{article_id}:
-    put:
-      summary: Update article
-      operationId: lib.views.view_articles.put
-      security:
-        - jwt: [ ]
-      parameters:
-        - name: article_id
-          in: path
-          required: true
-          schema:
-            type: integer
-      requestBody:
-        description: Updated article
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Article'
-      responses:
-        '200':
-          description: Article update
-    delete:
-      summary: Delete article
-      operationId: lib.views.view_articles.delete
-      security:
-        - jwt: [ ]
-      parameters:
-        - name: article_id
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: Article deleted
-
+#  /articles:
+#    get:
+#      summary: Get all user articles
+#      operationId: lib.views.view_articles.get
+#      security:
+#        - jwt: [ ]
+#      responses:
+#        '200':
+#          description: User articles
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                items:
+#                  $ref: '#/components/schemas/Article'
+#    post:
+#      summary: Add new post
+#      operationId: lib.views.view_articles.post
+#      security:
+#        - jwt: [ ]
+#      requestBody:
+#        description: New article
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/Article'
+#      responses:
+#        '200':
+#          description: Article created
+#  /articles/{article_id}:
+#    put:
+#      summary: Update article
+#      operationId: lib.views.view_articles.put
+#      security:
+#        - jwt: [ ]
+#      parameters:
+#        - name: article_id
+#          in: path
+#          required: true
+#          schema:
+#            type: integer
+#      requestBody:
+#        description: Updated article
+#        required: true
+#        content:
+#          application/json:
+#            schema:
+#              $ref: '#/components/schemas/Article'
+#      responses:
+#        '200':
+#          description: Article update
+#    delete:
+#      summary: Delete article
+#      operationId: lib.views.view_articles.delete
+#      security:
+#        - jwt: [ ]
+#      parameters:
+#        - name: article_id
+#          in: path
+#          required: true
+#          schema:
+#            type: integer
+#      responses:
+#        '200':
+#          description: Article deleted
+#
 components:
   securitySchemes:
     jwt:
@@ -113,17 +113,17 @@ components:
       bearerFormat: JWT
       x-bearerInfoFunc: lib.auth.decode_token
 
-  schemas:
-    Article:
-      properties:
-        article_id:
-          type: integer
-          readOnly: true
-        title:
-          type: string
-        content:
-          type: string
-      required:
-        - article_id
-        - title
-        - content
+#  schemas:
+#    Article:
+#      properties:
+#        article_id:
+#          type: integer
+#          readOnly: true
+#        title:
+#          type: string
+#        content:
+#          type: string
+#      required:
+#        - article_id
+#        - title
+#        - content

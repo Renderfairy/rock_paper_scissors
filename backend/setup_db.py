@@ -2,7 +2,7 @@ import os
 
 from app import app
 from lib.config import CONFIG
-from lib.models import db, User, Article
+from lib.models import db, User
 
 
 def setup_db():
@@ -17,12 +17,6 @@ def setup_db():
         user = User(username='test', password='test')
         db.session.add(user)
         db.session.flush()  # required to create user_id
-
-        db.session.add(Article(
-            author_user_id=user.user_id,
-            title='Article title',
-            content='No Pulitzer candidate here, lets focus on the code.'
-        ))
 
         db.session.commit()
 
