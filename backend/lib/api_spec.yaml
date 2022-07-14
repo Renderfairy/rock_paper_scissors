@@ -41,7 +41,7 @@ paths:
   /stats:
     get:
       summary: Get users statistics
-      operationId: lib.views.game.get_statistics
+      operationId: lib.views.game_views.get_statistics
       security:
         - jwt: [ ]
       responses:
@@ -55,21 +55,32 @@ paths:
                   - $ref: '#/components/schemas/Credit'
                   - $ref: '#/components/schemas/Win'
                   - $ref: '#/components/schemas/Loss'
-#    post:
-#      summary: Add new post
-#      operationId: lib.views.view_articles.post
-#      security:
-#        - jwt: [ ]
+  /play/{choice}:
+    get:
+      summary: Play rock paper scissors
+      operationId: lib.views.game_views.play_game
+      security:
+        - jwt: [ ]
+      parameters:
+        - in: path
+          name: choice
+          required: true
+          schema:
+            $ref: '#components/schemas/Choices'
 #      requestBody:
-#        description: New article
-#        required: true
+#        description: Play the game
+#        required: false
 #        content:
 #          application/json:
 #            schema:
-#              $ref: '#/components/schemas/Article'
-#      responses:
-#        '200':
-#          description: Article created
+#              type: array
+#              allOf:
+#                - $ref: '#/components/schemas/Credit'
+#                - $ref: '#/components/schemas/Win'
+#                - $ref: '#/components/schemas/Loss'
+      responses:
+        '200':
+          description: Game played
 #  /articles/{article_id}:
 #    put:
 #      summary: Update article
@@ -133,3 +144,9 @@ components:
         loss_id:
           type: integer
           readOnly: true
+    Choices:
+      type: string
+      enum:
+        - rock
+        - paper
+        - scissors
